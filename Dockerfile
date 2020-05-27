@@ -11,7 +11,7 @@ FROM registry.access.redhat.com/ubi8-minimal:8.1-398
 
 ARG KUBERNETES_VERSION=v1.17.3
 
-RUN export ARCH="$(uname -m)" && if [[ ${ARCH} == "x86_64" ]]; then export ARCH="amd64"; fi && \
+RUN export ARCH="$(uname -m)" && if [[ ${ARCH} == "x86_64" ]]; then export ARCH="amd64"; elif [[ ${ARCH} == "aarch64" ]]; then export ARCH="arm64"; fi && \
     microdnf install -y openssl && \
     cd /usr/local/bin && \
     curl -sLO https://storage.googleapis.com/kubernetes-release/release/${KUBERNETES_VERSION}/bin/linux/${ARCH}/kubectl && \
